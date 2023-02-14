@@ -10,23 +10,18 @@ let posts = [
         'date': 'Gestern',
         'hashtags': '#foodie #lazy',
         'liked': false,
-        'comments':[
+        'comments': [
             {
-                'author':'Mister Joe',
-                'pic':'img/Profilbilder/pexels-anna-nekrashevich-6801642.jpg',
-                'comment':'wow'
-            },
-            {
-                'author':'Mister Joe',
-                'pic':'img/Profilbilder/pexels-anna-nekrashevich-6801642.jpg',
-                'comment':'kaser'
+                'author': 'Mister Joe',
+                'pic': 'img/Profilbilder/pexels-anna-nekrashevich-6801642.jpg',
+                'comment': 'wow'
             }
         ]
     },
     {
         'profilimg': 'img/Profilbilder/daniel-xavier-1239288.jpg',
         'author': 'Fashion_Nova',
-        'image': ['img/posts/img2.jpg','img/posts/img3.jpg','img/posts/img4.jpg'],
+        'image': ['img/posts/img2.jpg', 'img/posts/img3.jpg', 'img/posts/img1.jpg'],
         'description': 'Photoshoot for the New Brand Prana Luna.',
         'location': 'Hamburg',
         'likes': 1521,
@@ -34,16 +29,16 @@ let posts = [
         'date': 'vor 45 Minuten',
         'hashtags': '#fashion #instalife #prana',
         'liked': false,
-        'comments':[
+        'comments': [
             {
-                'author':'jasmin',
-                'pic':'img/Profilbilder/pexels-anna-nekrashevich-6801642.jpg',
-                'comment':'yeha'
+                'author': 'jasmin',
+                'pic': 'img/Profilbilder/pexels-anna-nekrashevich-6801642.jpg',
+                'comment': 'yeha'
             },
             {
-                'author':'Mister Joe',
-                'pic':'img/Profilbilder/pexels-anna-nekrashevich-6801642.jpg',
-                'comment':'Das sieht Lecker aus'
+                'author': 'Mister Joe',
+                'pic': 'img/Profilbilder/pexels-anna-nekrashevich-6801642.jpg',
+                'comment': 'Das sieht Lecker aus'
             }
         ]
     },
@@ -58,16 +53,16 @@ let posts = [
         'date': 'vor 5 std',
         'hashtags': '#goodlife #healthylifestyle #fruits',
         'liked': false,
-        'comments':[
+        'comments': [
             {
-                'author':'kempinski',
-                'pic':'img/Profilbilder/pexels-anna-nekrashevich-6801642.jpg',
-                'comment':'oha'
+                'author': 'kempinski',
+                'pic': 'img/Profilbilder/pexels-anna-nekrashevich-6801642.jpg',
+                'comment': 'oha'
             },
             {
-                'author':'Mister Joe',
-                'pic':'img/Profilbilder/pexels-anna-nekrashevich-6801642.jpg',
-                'comment':'Das sieht Lecker aus'
+                'author': 'Mister Joe',
+                'pic': 'img/Profilbilder/pexels-anna-nekrashevich-6801642.jpg',
+                'comment': 'Das sieht Lecker aus'
             }
         ]
     },
@@ -82,16 +77,16 @@ let posts = [
         'date': 'vor 10 std',
         'hashtags': '#travel #vloglifestyle #happy ',
         'liked': false,
-        'comments':[
+        'comments': [
             {
-                'author':'Mister Joe',
-                'pic':'img/Profilbilder/pexels-anna-nekrashevich-6801642.jpg',
-                'comment':'Das sieht Lecker aus'
+                'author': 'Mister Joe',
+                'pic': 'img/Profilbilder/pexels-anna-nekrashevich-6801642.jpg',
+                'comment': 'Das sieht Lecker aus'
             },
             {
-                'author':'Mister Joe',
-                'pic':'img/Profilbilder/pexels-anna-nekrashevich-6801642.jpg',
-                'comment':'Das sieht Lecker aus'
+                'author': 'Mister Joe',
+                'pic': 'img/Profilbilder/pexels-anna-nekrashevich-6801642.jpg',
+                'comment': 'Das sieht Lecker aus'
             }
         ]
     }
@@ -103,35 +98,56 @@ function renderPosts() {
     for (let i = 0; i < posts.length; i++) {
         const post = posts[i];
         let commentsAmount = posts[i].comments.length;
-        
+
         content.innerHTML += postsTemplate(i, post, commentsAmount);
-        multipleImageSlider(i,post,commentsAmount);
+        multipleImageSlider(i, post, commentsAmount);
         renderComments(i);
     }
 }
-function renderComments(i){
+function renderComments(i) {
     let comments = document.getElementById(`comments${i}`);
-    let commentsAmount =posts[i].comments.length;
-    comments.innerHTML ='';
+    let commentsAmount = posts[i].comments.length;
+    comments.innerHTML = '';
     for (let k = 0; k < commentsAmount; k++) {
         const comment = posts[i].comments[k];
-        comments.innerHTML +=`
+        comments.innerHTML += `
             <div><b>${comment.author}</b>: ${comment.comment}</div>`;
     }
- }
-function multipleImageSlider(i,post){//Soll den multiple image slider rendern
-        if (post.image.length > 1) {
+}
+function save(i){
+    let commentValue = document.getElementById(`comment-input${i}`).value;
+    let newComment = {
+        'author':'Kaser',
+        'comment':`${commentValue}`
+    };
+    posts[i].comments.push(newComment)
+    renderPosts();
+    saveInLocalStorage();
+}
+function saveInLocalStorage(){
+    
+}
+function multipleImageSlider(i, post) {//Soll den multiple image slider rendern
+    if (post.image.length > 1) {
         document.getElementById(`multi-img${i}`).remove();
-        document.getElementById(`carousel-container${i}`).innerHTML = carouselTemplate(i,post);
-        
+        document.getElementById(`carousel-container${i}`).innerHTML = carouselNewTemplate();
+
         for (let j = 0; j < post.image.length; j++) {
             const image = post.image[j];
-            document.getElementById(`carousel-inner`).innerHTML +=`
-            <div class="carousel-item active">
-                <img class="d-block w-100" src="${image}">
-            </div>`; 
+            if (j == 1) {
+                document.getElementById(`carousel-inners`).innerHTML += `
+                    <div class="carousel-item active">
+                        <img class="d-block w-100" src="${image}">
+                    </div>`;
+            } else {
+                document.getElementById(`carousel-inners`).innerHTML += `
+                <div class="carousel-item ">
+                    <img class="d-block w-100" src="${image}">
+                </div>`;
+            }
+
         }
-    } 
+    }
 }
 function readmore(i) {
     let span = document.getElementById(`more${i}`);
@@ -178,17 +194,17 @@ function filterNames() {
     }
 }
 
-function enableButton(i){
+function enableButton(i) {
     let input = document.getElementById(`comment-input${i}`);
     let commentBtn = document.getElementById(`comment-btn${i}`);
     commentBtn.disabled = !input.value;
     if (commentBtn.disabled == false) {
         commentBtn.style.color = 'darkblue';
-    }else{
+    } else {
         commentBtn.style.color = 'gray';
     }
 }
- 
+
 
 
 

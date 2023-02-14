@@ -46,7 +46,7 @@ function postsTemplate(i, post, commentsAmount) {
                 <div class="comment-section">
                     <img src="img/smile.png" alt="">
                     <input id="comment-input${i}" onkeydown="enableButton(${i})" placeholder="Kommentieren ..." type="text">
-                    <button disabled id="comment-btn${i}">Posten</button>
+                    <button onclick="save(${i})" disabled id="comment-btn${i}">Posten</button>
                 </div>
             </div>`;
 }
@@ -70,4 +70,19 @@ function carouselTemplate(i, post) {
                         <span class="sr-only">Next</span>
                         </a>
                     </div>`;
+}
+function carouselNewTemplate(){
+    return/*html*/`<div id="carouselExample" class="carousel slide">
+    <div class="carousel-inner" id="carousel-inners">
+     
+    </div>
+    <button class="carousel-control-prev" type="button" data-bs-target="#carouselExample" data-bs-slide="prev">
+      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+      <span class="visually-hidden">Previous</span>
+    </button>
+    <button class="carousel-control-next" type="button" data-bs-target="#carouselExample" data-bs-slide="next">
+      <span class="carousel-control-next-icon" aria-hidden="true"></span>
+      <span class="visually-hidden">Next</span>
+    </button>
+  </div>`;
 }

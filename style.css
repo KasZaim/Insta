@@ -298,3 +298,21 @@ input {
 .flickity-viewport {
   transition: height 0.2s;
 }
+.d-none{
+  display: none;
+}
+.popup-bg{
+  z-index: 10;
+  position: fixed;
+  height: 100%;
+  width: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.comments-popup{
+  height: 80%;
+  width: 80%;
+  background-color: white;
+}
